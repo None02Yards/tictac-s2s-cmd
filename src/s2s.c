@@ -92,7 +92,6 @@ static void *rx_thread(void *arg) {
                 if (!g_running) break;
                 continue; // back to recv on new socket
             } else {
-                // host: wait for a new accept
                 fprintf(stderr, "[s2s] peer lost; waiting for new connection...\n");
                 close(g_sock_fd);
                 g_sock_fd = -1;
@@ -100,7 +99,6 @@ static void *rx_thread(void *arg) {
                 int fd = accept(g_listen_fd, NULL, NULL);
                 if (fd < 0) {
                     if (!g_running) break;
-                    // accept failed unexpectedly, try again
                     sleep(1);
                     continue;
                 }

@@ -26,7 +26,7 @@ int main(int argc, char **argv){
     int is_host = 0, port = DEFAULT_PORT;
     const char *ip = NULL;
 
-    // super light CLI
+    // light CLI
     for (int i=1;i<argc;i++){
         if (!strcmp(argv[i],"--host") && i+1<argc){ is_host=1; port=atoi(argv[++i]); }
         else if (!strcmp(argv[i],"--connect") && i+2<argc){ ip=argv[++i]; port=atoi(argv[++i]); }
@@ -35,9 +35,8 @@ int main(int argc, char **argv){
     }
     if (!is_host && !ip) usage(argv[0]);
 
-    // init subsystems
-    game_reset();                // prepares initial board (round starts on /play)
-    ui_init(name, is_host);      // prints commands + initial board
+    game_reset();              
+    ui_init(name, is_host);      
     s2s_set_on_line(on_peer_line);
 
     // bring up the link
@@ -47,11 +46,9 @@ int main(int argc, char **argv){
         if (s2s_connect_start(ip, port)!=0) die("connect");
     }
 
-    // announce ourselves AFTER the link is up
     s2s_sendf("%s %s", MSG_HELLO, name);
-    // (Do NOT auto-send BOARD/TURN here; /play will start the round)
+    
 
-    // Simple select-loop for stdin
     char buf[BUF_SIZE];
     while (1){
         fd_set rfds; FD_ZERO(&rfds);

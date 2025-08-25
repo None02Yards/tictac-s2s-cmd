@@ -46,11 +46,6 @@ static int json_get_int(const char *line, const char *key, int *out){
 
 
 
-
-
-
-
-
 // Round state
 static int game_active = 0;
 static int game_paused = 0;
