@@ -1,11 +1,9 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
-#define MSG_STATUS "STATUS"   // STATUS DISCONNECTED | STATUS RECONNECTED
+#define MSG_STATUS "STATUS"   
 
-// Default ports (override via CLI)
 #define DEFAULT_PORT 5555
 
-// Line-oriented messages (text based)
 #define MSG_HELLO  "HELLO"       // HELLO <name>
 #define MSG_CHAT   "CHAT"        // CHAT <text...>
 #define MSG_MOVE   "MOVE"        // MOVE <1-9>
